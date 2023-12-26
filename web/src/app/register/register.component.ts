@@ -9,21 +9,17 @@ import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 export class RegisterComponent {
   email!: string;
   password!: string;
+  errorMessage!: string;
 
   constructor(private auth: Auth) {}
 
   register() {
     createUserWithEmailAndPassword(this.auth, this.email, this.password)
       .then((userCredential) => {
-        // Successfully created new user
-        const user = userCredential.user;
-        // ...
+        // Redirect or do something upon successful registration
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
+        this.errorMessage = error.message;
       });
   }
 }

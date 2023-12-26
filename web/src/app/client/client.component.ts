@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Auth, User, authState } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrl: './client.component.css'
+  styleUrls: ['./client.component.css'],
 })
-export class ClientComponent {
+export class ClientComponent implements OnInit {
+  user$: Observable<User | null>;
 
+  constructor(private auth: Auth) {
+    this.user$ = authState(auth);
+  }
+
+  ngOnInit(): void {
+    // Any additional initialization can go here
+  }
 }

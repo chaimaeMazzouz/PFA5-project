@@ -8,6 +8,7 @@ import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
 })
 export class ForgotPasswordComponent {
   email!: string;
+  errorMessage!: string;
 
   constructor(private auth: Auth) {}
 
@@ -18,10 +19,7 @@ export class ForgotPasswordComponent {
         // ...
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
+        this.errorMessage = error.message;
       });
   }
 }

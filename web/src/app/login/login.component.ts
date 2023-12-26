@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,21 +10,21 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 export class LoginComponent {
   email!: string;
   password!: string;
+  errorMessage!: string;
 
-  constructor(private auth: Auth) {}
+  constructor(private router: Router, private auth: Auth) {}
 
   login() {
     signInWithEmailAndPassword(this.auth, this.email, this.password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
+        // Redirect or do something upon successful login
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
+        this.errorMessage = error.message;
       });
+  }
+
+  navigateTo(path: string) {
+    this.router.navigate([`/${path}`]);
   }
 }

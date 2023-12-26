@@ -1,1 +1,11 @@
-<p>client works!</p>
+<div *ngIf="user$ | async as user; else notLoggedIn">
+  <h2>Client Details:</h2>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>User Id:</strong> {{ user.uid }}</p>
+  <p><strong>Email:</strong> {{ user.getIdToken }}</p>
+  <!-- You can add more details that you want to display -->
+</div>
+
+<ng-template #notLoggedIn>
+  <p>User is not logged in.</p>
+</ng-template>
