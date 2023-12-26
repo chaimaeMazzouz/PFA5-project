@@ -10,14 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  // Add other routes here
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default route
-];
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +18,12 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    ClientComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot(routes),
     provideFirebaseApp(() =>
       initializeApp({
         projectId: 'gestion-de-reservation-fb64e',
@@ -45,6 +38,5 @@ const routes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [RouterModule],
 })
 export class AppModule {}
