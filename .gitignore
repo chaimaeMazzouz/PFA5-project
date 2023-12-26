@@ -86,3 +86,8 @@ ios/Flutter/.last_build_id
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
