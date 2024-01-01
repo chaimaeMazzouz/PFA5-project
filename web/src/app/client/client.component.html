@@ -1,10 +1,175 @@
-<div *ngIf="user$ | async as user; else notLoggedIn">
-  <h2>Client Details:</h2>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>User Id:</strong> {{ user.uid }}</p>
-  <!-- You can add more details that you want to display -->
-</div>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between mb-2">
+    <button
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#addDemandeModal"
+    >
+      Add New Demande
+    </button>
+  </div>
 
-<ng-template #notLoggedIn>
-  <p>User is not logged in.</p>
-</ng-template>
+  <!-- Demande List -->
+  <div *ngIf="demandes.length; else noDemandes">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let demande of demandes; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ demande.sujet }}</td>
+          <td>{{ demande.description }}</td>
+          <td>{{ demande.date_creation | date }}</td>
+          <td>
+            <button
+              class="btn btn-info btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#updateDemandeModal"
+              (click)="selectDemande(demande)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteDemande(demande)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noDemandes>
+    <p>No demandes found.</p>
+  </ng-template>
+
+  <!-- Add Demande Modal -->
+  <div
+    class="modal fade"
+    id="addDemandeModal"
+    tabindex="-1"
+    aria-labelledby="addDemandeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addDemandeModalLabel">Add New Demande</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="addDemande(addForm.value)">
+            <div class="mb-3">
+              <label for="sujet" class="form-label">Subject</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sujet"
+                name="sujet"
+                ngModel
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                ngModel
+                required
+              ></textarea>
+            </div>
+            <!-- Removed status from the Add form as the default status would likely be 'En cours' -->
+            <button type="submit" class="btn btn-primary">Add Demande</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Demande Modal -->
+  <div
+    class="modal fade"
+    id="updateDemandeModal"
+    tabindex="-1"
+    aria-labelledby="updateDemandeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateDemandeModalLabel">
+            Update Demande
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form
+            #updateForm="ngForm"
+            (ngSubmit)="updateDemande(selectedDemande)"
+          >
+            <div class="mb-3">
+              <label for="sujetUpdate" class="form-label">Subject</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sujetUpdate"
+                name="sujet"
+                [(ngModel)]="selectedDemande!.sujet"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="descriptionUpdate" class="form-label"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                id="descriptionUpdate"
+                name="description"
+                [(ngModel)]="selectedDemande!.description"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="etatUpdate" class="form-label">Status</label>
+              <select
+                class="form-select"
+                id="etatUpdate"
+                name="etat"
+                [(ngModel)]="selectedDemande!.etat"
+                required
+              >
+                <option value="En_cours">In Progress</option>
+                <option value="Accepte">Accepted</option>
+                <option value="Rejete">Rejected</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Update Demande
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

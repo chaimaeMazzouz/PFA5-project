@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Login</h2>
-          <form>
+          <form (ngSubmit)="login()">
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
               <input
@@ -28,17 +28,15 @@
               />
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary" (click)="login()">
-                Login
-              </button>
+              <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
           <hr />
           <p class="text-center">
-            <a href="register">Register for an account</a>
+            <a routerLink="/register">Register for an account</a>
           </p>
           <p class="text-center">
-            <a href="forgot-password">Forgot password?</a>
+            <a routerLink="/forgot-password">Forgot password?</a>
           </p>
           <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
             {{ errorMessage }}
