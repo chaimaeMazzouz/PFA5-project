@@ -16,5 +16,14 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     // Any additional initialization can go here
+    this.user$.subscribe((user) => {
+      if (user) {
+        user.getIdToken().then((token) => {
+          console.log(token);
+        });
+      } else {
+        console.log('User is not logged in');
+      }
+    });
   }
 }

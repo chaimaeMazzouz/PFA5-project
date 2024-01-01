@@ -14,10 +14,7 @@ export class ForgotPasswordComponent {
 
   resetPassword() {
     sendPasswordResetEmail(this.auth, this.email)
-      .then(() => {
-        // Password reset email sent!
-        // ...
-      })
+      .then(() => {})
       .catch((error) => {
         this.errorMessage = error.message;
       });
