@@ -18,15 +18,17 @@
           <th scope="col">Subject</th>
           <th scope="col">Description</th>
           <th scope="col">Date</th>
+          <th scope="col">Status</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let demande of demandes; let i = index">
           <th scope="row">{{ i + 1 }}</th>
-          <td>{{ demande.sujet }}</td>
+          <td>{{ demande?.sujet }}</td>
           <td>{{ demande.description }}</td>
-          <td>{{ demande.date_creation | date }}</td>
+          <td>{{ demande.dateCreation | date }}</td>
+          <td>{{ demande.etat }}</td>
           <td>
             <button
               class="btn btn-info btn-sm"
@@ -38,7 +40,7 @@
             </button>
             <button
               class="btn btn-danger btn-sm"
-              (click)="deleteDemande(demande)"
+              (click)="deleteDemande(demande.id)"
             >
               Delete
             </button>
@@ -93,7 +95,6 @@
                 required
               ></textarea>
             </div>
-            <!-- Removed status from the Add form as the default status would likely be 'En cours' -->
             <button type="submit" class="btn btn-primary">Add Demande</button>
           </form>
         </div>
@@ -123,10 +124,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <form
-            #updateForm="ngForm"
-            (ngSubmit)="updateDemande(selectedDemande)"
-          >
+          <form #updateForm="ngForm" (ngSubmit)="updateDemande()">
             <div class="mb-3">
               <label for="sujetUpdate" class="form-label">Subject</label>
               <input
@@ -149,20 +147,6 @@
                 [(ngModel)]="selectedDemande!.description"
                 required
               ></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="etatUpdate" class="form-label">Status</label>
-              <select
-                class="form-select"
-                id="etatUpdate"
-                name="etat"
-                [(ngModel)]="selectedDemande!.etat"
-                required
-              >
-                <option value="En_cours">In Progress</option>
-                <option value="Accepte">Accepted</option>
-                <option value="Rejete">Rejected</option>
-              </select>
             </div>
             <button type="submit" class="btn btn-primary">
               Update Demande

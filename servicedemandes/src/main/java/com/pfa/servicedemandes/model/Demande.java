@@ -18,7 +18,7 @@ public class Demande {
     private String sujet;
     private String description;
     private Date dateCreation;
+    @Enumerated(EnumType.STRING)
     private Etat etat;
-    @ManyToOne
-    private Utilisateur utilisateur;
+    private String userId;
 }

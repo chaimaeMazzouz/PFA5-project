@@ -1,52 +1,49 @@
 package com.pfa.servicedemandes.controller;
 
 import com.pfa.servicedemandes.model.Demande;
-import com.pfa.servicedemandes.repository.DemandeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import com.pfa.servicedemandes.service.DemandeService;
+import com.pfa.servicedemandes.service.FirebaseAuthService;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("api/demandes")
+@RestController
+@RequestMapping("/api/demandes")
+@RequiredArgsConstructor
 public class DemandeController {
-    @Autowired
-    private DemandeRepository demandeRepository;
 
-    @GetMapping("find/{id}")
-    public Demande findById(@PathVariable(required = true) String id) {
-        return demandeRepository.findById(Integer.parseInt(id));
+    private final DemandeService demandeService;
+    private final FirebaseAuthService firebaseAuthService;
+    @GetMapping
+    public ResponseEntity<List<Demande>> getAllDemandes(HttpServletRequest request) {
+        String userId = firebaseAuthService.getUidFromRequest(request);
+        List<Demande> demandes = demandeService.getAllDemandes(userId);
+        return ResponseEntity.ok(demandes);
     }
 
-    @GetMapping("findAll")
-    public List<Demande> findAll() {
-        return demandeRepository.findAll();
+    @PostMapping
+    public ResponseEntity<Demande> createDemande(@RequestBody Demande demande, HttpServletRequest request) {
+        String userId = firebaseAuthService.getUidFromRequest(request);
+        demande.setUserId(userId);
+        Demande createdDemande = demandeService.createDemande(demande);
+        return ResponseEntity.ok(createdDemande);
     }
 
-    @PostMapping("save")
-    public void save(@RequestBody Demande Demande) {
-        demandeRepository.save(Demande);
+    @PutMapping("/{id}")
+    public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande demande) {
+        demande.setId(id);
+        Demande updatedDemande = demandeService.updateDemande(demande);
+        return ResponseEntity.ok(updatedDemande);
     }
 
-    @PutMapping("put")
-    public void patch(@RequestBody Demande Demande) {
-        demandeRepository.save(Demande);
-    }
 
-    @DeleteMapping("delete/{id}")
-    public void delete(@PathVariable(required = true) String id) {
-        Demande demande = demandeRepository.findById(Integer.parseInt(id));
-        demandeRepository.delete(demande);
-    }
-
-    @DeleteMapping("deleteAll")
-    public void deleteAll() {
-        demandeRepository.deleteAll();
-    }
-
-    @GetMapping("count")
-    public long count() {
-        return demandeRepository.count();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDemande(@PathVariable int id, HttpServletRequest request) {
+        String userId = firebaseAuthService.getUidFromRequest(request);
+        demandeService.deleteDemande(id, userId);
+        return ResponseEntity.ok().build();
     }
 }

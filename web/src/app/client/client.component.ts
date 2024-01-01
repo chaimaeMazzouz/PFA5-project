@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DemandeService } from '../services/demande.service';
-import { Demande, Etat } from '../models/demande'; // Import your Demande model and Etat enum here
+import { Demande, Etat } from '../models/demande.model';
 
 @Component({
   selector: 'app-client',
@@ -9,7 +9,7 @@ import { Demande, Etat } from '../models/demande'; // Import your Demande model 
 })
 export class ClientComponent implements OnInit {
   demandes: Demande[] = [];
-  selectedDemande: Demande | null = null;
+  selectedDemande: Demande = new Demande();
 
   constructor(private demandeService: DemandeService) {}
 
@@ -18,7 +18,7 @@ export class ClientComponent implements OnInit {
   }
 
   loadDemandes(): void {
-    this.demandeService.getDemandes().subscribe(
+    this.demandeService.getAllDemandes().subscribe(
       (data) => {
         this.demandes = data;
       },
@@ -28,15 +28,15 @@ export class ClientComponent implements OnInit {
     );
   }
 
-  addDemande(formValues: any): void {
-    const newDemande = new Demande();
-    newDemande.sujet = formValues.sujet;
-    newDemande.description = formValues.description;
-    // Assuming the default state for a new demande is 'En cours'
-    newDemande.etat = Etat.En_cours;
-    newDemande.date_creation = new Date(); // Set the creation date to now
+  addDemande(formValues: { sujet: string; description: string }): void {
+    const newDemande = new Demande(
+      formValues.sujet,
+      formValues.description,
+      new Date(), // Set the creation date to now
+      Etat.EN_COURS
+    );
 
-    this.demandeService.addDemande(newDemande).subscribe(
+    this.demandeService.createDemande(newDemande).subscribe(
       (addedDemande) => {
         this.demandes.push(addedDemande);
       },
@@ -46,10 +46,10 @@ export class ClientComponent implements OnInit {
     );
   }
 
-  deleteDemande(demande: Demande): void {
-    this.demandeService.deleteDemande(demande.id).subscribe(
+  deleteDemande(demandeId: number): void {
+    this.demandeService.deleteDemande(demandeId).subscribe(
       () => {
-        this.demandes = this.demandes.filter((d) => d.id !== demande.id);
+        this.demandes = this.demandes.filter((d) => d.id !== demandeId);
       },
       (error) => {
         console.error('Error deleting demande', error);
@@ -61,12 +61,8 @@ export class ClientComponent implements OnInit {
     this.selectedDemande = { ...demande }; // Create a copy to edit
   }
 
-  updateDemande(formValues: any): void {
+  updateDemande(): void {
     if (this.selectedDemande) {
-      this.selectedDemande.sujet = formValues.sujet;
-      this.selectedDemande.description = formValues.description;
-      this.selectedDemande.etat = formValues.etat;
-
       this.demandeService.updateDemande(this.selectedDemande).subscribe(
         (updatedDemande) => {
           const index = this.demandes.findIndex(
@@ -75,7 +71,6 @@ export class ClientComponent implements OnInit {
           if (index !== -1) {
             this.demandes[index] = updatedDemande;
           }
-          this.selectedDemande = null; // Reset the selected demande
         },
         (error) => {
           console.error('Error updating demande', error);

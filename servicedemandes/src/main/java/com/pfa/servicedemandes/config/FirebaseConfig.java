@@ -1,11 +1,9 @@
-package com.kanban.apigateway.config;
+package com.pfa.servicedemandes.config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.kanban.apigateway.security.FirebaseAuthenticationFilter;
 import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileInputStream;
@@ -20,17 +18,13 @@ public class FirebaseConfig {
             FileInputStream serviceAccount =
                     new FileInputStream("C:\\Users\\issam\\Downloads\\gestion-de-reservation-private-key.json");
 
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
 
             FirebaseApp.initializeApp(options);
         } catch (IOException e) {
-            e.printStackTrace();
+            // Handle IOException
         }
-    }
-    @Bean
-    public FirebaseAuthenticationFilter firebaseAuthenticationFilter() {
-        return new FirebaseAuthenticationFilter();
     }
 }
