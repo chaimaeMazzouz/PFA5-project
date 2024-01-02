@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gestion-de-reservation-fb64e",
+  "private_key_id": "70c0c7dd1eb5d0239d3d853e6edf44622ce47b6f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCkbhOdD3jZRdon\nHUSsTyTadGrGnfj4O/kzA+HNGCrsTbOxl/trxfdtT6JmCGROUQ7LIIpykXJ/cdBt\n5MwB7dVJXKVds7p3a58zh4IjNH4TFaWIi2xaG8XSDp+zJ0TsQNKQO3YaurI1TdRv\neaCWU0/LKJ0QJG7/q3jnR8Dld/LLeen4q4geZnMO+gvE/gjNcCck6P+lCUGc8J4c\nEwPiYMyqtt4FVrgi1LhIrEwNXQLDOWlxPLU+QbBBtPtSPbllsasnkEsK+ZJ58kfq\n0+9w0RafDmZIHU9MzM0q1MjPcr5+XAIaHvJLA07EqhB6zzRCz0eBuTG1QpPfY6Zr\nPDeElKbXAgMBAAECggEAFgiGtKFEn9S2NqSQ4F1bQlye4Y4nNQLlpyTfhoSKXToi\nQ0DALiu2YTLuailjYNfdbsb7AP7QGWzDsbNwH4K3oF97lz1Eq3OZPyXq1dMsYQah\ntP99yECizD2CaoFva7sEnCgjm3xQnJzubkudgwHslia949JbVK4tAszWInQ6wsdp\nhjur12+tHBprTTo80c7U5rW4sPfNdrgT0oQGkF3f7OaQml9WTWQId2JFEMJaEDld\nZU0vTEVt4TLTBm8yClS1Qvw63Hf8O801qGEWB0tFCe4Dj+3yGaDRN0J+EBmsQzab\nvBwjyRlyv+yDt9Z2Zk61+xwUKq2vl2fdWbTUKApyJQKBgQDlvQo7mgu8fULZUkOm\nCO/sQb7fQVnLNppmwbuYHfciagf9s3D4Aa0hWUyHSZpqtm3p6vDYrQs+MW8H5Qnp\n8gzmCTmwr38pRbLjPNoKXxEfVOSGI5q6tZhBkQVmhEP6RAEWlWc96heOqdstJGck\n9BMg/VJX+rkJJMoP4Kqp1SDW9QKBgQC3OeFSfWa7VkQXhxgEikvdHKlYQb04DL/a\njDV3o8UqqjcW5vzSx5GE41ojmiAExYhFsZaVKHdYl20jVC8vj+X7rwer0CPz4I53\nf7dKx+49DVpVqXpJPN+QkZ9N7c9KfdCFmFIMT4y8oTdTz8RUpTBjCkMGhYLJGs3/\nxRCRmasvGwKBgQDcpEgVogcviiYPziBGcELs5t/IT11L/C8iDWJ74BugI7F1CUew\nCPwcEUWckSYK4xaBGDEkCF3J53Q5YtG4q82TiLytYn+ARf5em+zVFSS+sKuh4MQU\nGaAXKI7FPLaEv5dD901me1MQozVrD5E4Pmm4v1K8SII5s+mUgjOmVJjrmQKBgQCc\nmtUSm2pGLqqObYJCxy2mdIvtimq/UG5ezr4YXxrzp37kjVOEmNyw912g1mgNjAQ4\nhVxOasLvLqYyrw6RmW2Z2/Uzjfhcxw8d5kR0n0PqXNJcKzoBBQ2U1FKT2fH2Gmky\n9okSSp/gze6rLQcCzhn4XNoC5fRuDQILXZUWzYA6BwKBgC2xnKqqKTrQrbxVg9UA\nRW+xenWz4yxzxSpEVJGTv9K943W2oapKci6v5l0QNOlQX+FKL//B/LccBK0H/5k2\nuqIMCd87xtX92/a43quIvjvot3aTzpbPirH5CUo1dPHrqb14f2BHkRZGxj2AK3D0\npeXjTo7W1qeznF4xCqnmPOWH\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-44m46@gestion-de-reservation-fb64e.iam.gserviceaccount.com",
+  "client_id": "115047922220638890973",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-44m46%40gestion-de-reservation-fb64e.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
