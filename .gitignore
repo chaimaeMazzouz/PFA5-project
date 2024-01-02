@@ -1,0 +1,93 @@
+# General
+*.log
+*.tmp
+*.tmp.*
+tmp/
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Java (Spring Boot)
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+.springBeans
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Gradle
+.gradle/
+build/
+
+# Node (common for Angular)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Angular specific
+/dist
+/.tmp
+/aot
+/out-tsc
+/*~
+/.sass-cache
+/angular.json
+/.angular-cache/
+/src/**/*.js.map
+/src/**/*.js
+!/src/**/*.worker.js
+
+# IDE specific files (IntelliJ, Eclipse, VSCode, etc.)
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# Flutter/Dart specific
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+ios/Flutter/.last_build_id
+.flutter-plugins-dependencies
+.flutter-plugins
+*.flutter-plugins
+*.flutter-plugins-dependencies
+*.lock
+
+# Operating system generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
