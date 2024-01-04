@@ -1,12 +1,12 @@
 class Demande {
-  final int id;
+  final int? id;
   final String sujet;
   final String description;
   final DateTime dateCreation;
   final String etat;
 
   Demande(
-      {required this.id,
+      {this.id,
       required this.sujet,
       required this.description,
       required this.dateCreation,
