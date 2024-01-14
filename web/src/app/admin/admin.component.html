@@ -1,1 +1,63 @@
-<p>admin works!</p>
+<div class="container mt-4">
+    <!-- Demande List -->
+    <div *ngIf="demandes.length; else noDemandes">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let demande of demandes; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ demande?.sujet }}</td>
+                    <td>{{ demande.description }}</td>
+                    <td>{{ demande.dateCreation | date }}</td>
+                    <td>{{ demande.etat }}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#updateDemandeModal"
+                            (click)="selectDemande(demande)">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noDemandes>
+        <p>No demandes found.</p>
+    </ng-template>
+
+    <!-- Update Demande Modal -->
+    <div class="modal fade" id="updateDemandeModal" tabindex="-1" aria-labelledby="updateDemandeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateDemandeModalLabel">
+                        Update Demande
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #updateForm="ngForm" (ngSubmit)="updateDemande()">
+                        <div class="mb-3">
+                            <!-- Select dropdown for updating the state -->
+                            <label for="etat" class="form-label">Etat:</label>
+                            <select id="etat" name="etat" class="form-select" [(ngModel)]="selectedDemande.etat" required>
+                                <option *ngFor="let etatOption of etats" [value]="etatOption">{{ etatOption }}
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Demande</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

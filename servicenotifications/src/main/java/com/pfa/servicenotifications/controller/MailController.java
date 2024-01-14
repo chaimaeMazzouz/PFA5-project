@@ -1,6 +1,6 @@
 package com.pfa.servicenotifications.controller;
 
-import com.pfa.servicenotifications.dto.EmailMessage;
+import com.pfa.servicenotifications.dto.EmailMessage;	
 import com.pfa.servicenotifications.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
