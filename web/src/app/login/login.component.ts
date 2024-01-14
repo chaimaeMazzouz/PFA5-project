@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Router } from '@angular/router';  // Provide the correct path
+import { Router } from '@angular/router'; // Provide the correct path
 import { AdminService } from '../services/admin.service';
 
 @Component({
@@ -16,8 +16,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private auth: Auth,
-    private adminService: AdminService  // Inject the AdminService
-  ) { }
+    private adminService: AdminService // Inject the AdminService
+  ) {}
 
   login() {
     signInWithEmailAndPassword(this.auth, this.email, this.password)
@@ -25,8 +25,8 @@ export class LoginComponent {
         const user = userCredential.user;
 
         // Check if the user is an admin
-        this.adminService.checkAdminStatus(user.uid)
-          .subscribe((isAdmin) => {
+        this.adminService.checkAdminStatus().subscribe(
+          (isAdmin) => {
             if (isAdmin) {
               // Navigate to the admin component
               this.router.navigate(['/admin']);
@@ -34,10 +34,12 @@ export class LoginComponent {
               // Navigate to the client component
               this.router.navigate(['/client']);
             }
-          }, (error) => {
-            console.error("Error checking admin status:", error);
+          },
+          (error) => {
+            console.error('Error checking admin status:', error);
             // Handle the error as needed
-          });
+          }
+        );
       })
       .catch((error) => {
         this.errorMessage = error.message;
