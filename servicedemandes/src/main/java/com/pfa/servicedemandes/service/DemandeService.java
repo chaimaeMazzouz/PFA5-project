@@ -17,6 +17,9 @@ public class DemandeService {
     public List<Demande> getAllDemandes(String userId) {
         return demandeRepository.findAllByUserId(userId);
     }
+    public List<Demande> getAllDemandesForAllUsers() {
+        return demandeRepository.findAll();
+    }
 
     public Demande createDemande(Demande demande) {
         return demandeRepository.save(demande);
