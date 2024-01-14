@@ -23,7 +23,7 @@ public class AdminController {
         String userId = firebaseAuthService.getUidFromRequest(request);
         return ResponseEntity.ok(adminRepository.findByUserId(userId).isPresent());
     }
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Demande>> getAllDemandesForAllUsers() {
         List<Demande> demandes = demandeService.getAllDemandesForAllUsers();
         return ResponseEntity.ok(demandes);

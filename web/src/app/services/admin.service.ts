@@ -28,7 +28,9 @@ export class AdminService {
   }
   getAllDemandes(): Observable<Demande[]> {
     return this.getHeaders().pipe(
-      switchMap((headers) => this.http.get<Demande[]>(this.apiUrl, { headers }))
+      switchMap((headers) =>
+        this.http.get<Demande[]>(`${this.apiUrl}/all`, { headers })
+      )
     );
   }
   updateDemande(demande: Demande): Observable<Demande> {
