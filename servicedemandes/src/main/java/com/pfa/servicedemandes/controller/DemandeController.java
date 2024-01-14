@@ -23,12 +23,6 @@ public class DemandeController {
         List<Demande> demandes = demandeService.getAllDemandes(userId);
         return ResponseEntity.ok(demandes);
     }
-    @GetMapping
-    public ResponseEntity<List<Demande>> getAllDemandesForAllUsers() {
-        List<Demande> demandes = demandeService.getAllDemandesForAllUsers();
-        return ResponseEntity.ok(demandes);
-    }
-
     @PostMapping
     public ResponseEntity<Demande> createDemande(@RequestBody Demande demande, HttpServletRequest request) {
         String userId = firebaseAuthService.getUidFromRequest(request);
@@ -42,8 +36,6 @@ public class DemandeController {
     public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande demande) {
         demande.setId(id);
         Demande updatedDemande = demandeService.updateDemande(demande);
-        //TODO : notify user
-        // call notification service
         return ResponseEntity.ok(updatedDemande);
     }
 

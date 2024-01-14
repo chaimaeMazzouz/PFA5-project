@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, from, map, switchMap, throwError } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
+import { Demande } from '../models/demande.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,20 @@ export class AdminService {
   checkAdminStatus(): Observable<boolean> {
     return this.getHeaders().pipe(
       switchMap((headers) => this.http.get<boolean>(this.apiUrl, { headers }))
+    );
+  }
+  getAllDemandes(): Observable<Demande[]> {
+    return this.getHeaders().pipe(
+      switchMap((headers) => this.http.get<Demande[]>(this.apiUrl, { headers }))
+    );
+  }
+  updateDemande(demande: Demande): Observable<Demande> {
+    return this.getHeaders().pipe(
+      switchMap((headers) =>
+        this.http.put<Demande>(`${this.apiUrl}/${demande.id}`, demande, {
+          headers,
+        })
+      )
     );
   }
 }

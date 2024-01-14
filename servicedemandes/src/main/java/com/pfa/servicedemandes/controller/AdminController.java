@@ -2,13 +2,12 @@ package com.pfa.servicedemandes.controller;
 
 import com.pfa.servicedemandes.model.Demande;
 import com.pfa.servicedemandes.repository.AdminRepository;
+import com.pfa.servicedemandes.service.DemandeService;
 import com.pfa.servicedemandes.service.FirebaseAuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,9 +17,23 @@ import java.util.List;
 public class AdminController {
     private final AdminRepository adminRepository;
     private final FirebaseAuthService firebaseAuthService;
+    private final DemandeService demandeService;
     @GetMapping
     public ResponseEntity<Boolean> isAdmin(HttpServletRequest request) {
         String userId = firebaseAuthService.getUidFromRequest(request);
         return ResponseEntity.ok(adminRepository.findByUserId(userId).isPresent());
+    }
+    @GetMapping
+    public ResponseEntity<List<Demande>> getAllDemandesForAllUsers() {
+        List<Demande> demandes = demandeService.getAllDemandesForAllUsers();
+        return ResponseEntity.ok(demandes);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande demande) {
+        demande.setId(id);
+        Demande updatedDemande = demandeService.updateDemande(demande);
+        //TODO : notify user
+        // call notification service
+        return ResponseEntity.ok(updatedDemande);
     }
 }
