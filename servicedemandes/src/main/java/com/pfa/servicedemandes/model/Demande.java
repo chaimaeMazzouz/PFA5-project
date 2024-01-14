@@ -21,4 +21,5 @@ public class Demande {
     @Enumerated(EnumType.STRING)
     private Etat etat;
     private String userId;
+    private String email;
 }

@@ -16,11 +16,27 @@ public class FirebaseAuthService {
         }
         return null; // Or handle this scenario appropriately
     }
+    public String getEmailFromRequest(HttpServletRequest request) {
+        String email = getEmailFromToken(extractToken(request));
+        if (email != null) {
+            return email;
+        }
+        return null; // Or handle this scenario appropriately
+    }
 
     public String getUidFromToken(String idToken) {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             return decodedToken.getUid();
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
+            return null; // Handle exception appropriately
+        }
+    }
+    public String getEmailFromToken(String idToken) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            return decodedToken.getEmail();
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
             return null; // Handle exception appropriately

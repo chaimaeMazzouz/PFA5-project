@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'client', canActivate: [authGuard], component: ClientComponent },
   { path: 'admin', canActivate: [authGuard], component: AdminComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

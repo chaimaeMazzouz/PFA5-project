@@ -28,6 +28,7 @@ public class DemandeController {
     public ResponseEntity<Demande> createDemande(@RequestBody Demande demande, HttpServletRequest request) {
         String userId = firebaseAuthService.getUidFromRequest(request);
         demande.setUserId(userId);
+        demande.setEmail(firebaseAuthService.getEmailFromRequest(request));
         Demande createdDemande = demandeService.createDemande(demande);
         return ResponseEntity.ok(createdDemande);
     }
@@ -36,6 +37,8 @@ public class DemandeController {
     public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande demande) {
         demande.setId(id);
         Demande updatedDemande = demandeService.updateDemande(demande);
+        //TODO : notify user
+        // call notification service
         return ResponseEntity.ok(updatedDemande);
     }
 
