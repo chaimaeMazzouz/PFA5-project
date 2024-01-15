@@ -10,6 +10,8 @@ class ClientPage extends StatefulWidget {
 class _ClientPageState extends State<ClientPage> {
   final DemandeService _demandeService = DemandeService();
   List<Demande> _demandes = [];
+  TextEditingController _sujetController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -22,36 +24,88 @@ class _ClientPageState extends State<ClientPage> {
       final demandesData = await _demandeService.getAllDemandes();
       setState(() {
         _demandes = demandesData.map((data) => Demande.fromJson(data)).toList();
+        print("_demandes : " + _demandes.toString());
       });
     } catch (e) {
-// Handle error
+      print("error" + e.toString());
     }
   }
 
+  Future<void> _showDemandeDialog({Demande? demande}) async {
+    final isEditing = demande != null;
+    _sujetController.text = isEditing ? demande!.sujet : '';
+    _descriptionController.text = isEditing ? demande!.description : '';
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(isEditing ? 'Edit Demande' : 'Create Demande'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  controller: _sujetController,
+                  decoration: InputDecoration(labelText: 'Sujet'),
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(labelText: 'Description'),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(isEditing ? 'Save Changes' : 'Create'),
+              onPressed: () async {
+                if (isEditing) {
+                  // Edit existing demande
+                  await _editDemande(demande!);
+                } else {
+                  // Create a new demande
+                  await _addDemande();
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _addDemande() async {
-// Add logic to add a new demande
-// For simplicity, using dummy data here
     Map<String, dynamic> newDemandeData = {
-      'sujet': 'New Sujet',
-      'description': 'New Description',
+      'sujet': _sujetController.text,
+      'description': _descriptionController.text,
+      'etat': 'EN_COURS'
     };
+
     try {
       final newDemande = await _demandeService.createDemande(newDemandeData);
       setState(() {
         _demandes.add(Demande.fromJson(newDemande));
       });
+      _showMessageSnackBar(context, "Demande created successfully");
     } catch (e) {
-      // Handle error
+      _showErrorSnackBar(context, e.toString() ?? 'Failed to create demande');
     }
   }
 
   Future<void> _editDemande(Demande demande) async {
-// Add logic to edit an existing demande
-// For simplicity, using dummy data here
     Map<String, dynamic> updatedDemandeData = {
-      'sujet': 'Updated Sujet',
-      'description': 'Updated Description',
+      'sujet': _sujetController.text,
+      'description': _descriptionController.text,
     };
+
     try {
       final updatedDemande = await _demandeService.updateDemande(
           demande.id ?? 0, updatedDemandeData);
@@ -61,8 +115,9 @@ class _ClientPageState extends State<ClientPage> {
           _demandes[index] = Demande.fromJson(updatedDemande);
         }
       });
+      _showMessageSnackBar(context, "Demande edited successfully");
     } catch (e) {
-      // Handle error
+      _showErrorSnackBar(context, e.toString() ?? 'Failed to create demande');
     }
   }
 
@@ -72,9 +127,26 @@ class _ClientPageState extends State<ClientPage> {
       setState(() {
         _demandes.removeWhere((demande) => demande.id == id);
       });
+      _showMessageSnackBar(context, "Demande deleted successfully");
     } catch (e) {
-// Handle error
+      // Handle error
     }
+  }
+
+  void _showMessageSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _showErrorSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -95,7 +167,7 @@ class _ClientPageState extends State<ClientPage> {
               children: [
                 IconButton(
                   icon: Icon(Icons.edit),
-                  onPressed: () => _editDemande(demande),
+                  onPressed: () => _showDemandeDialog(demande: demande),
                 ),
                 IconButton(
                   icon: Icon(Icons.delete),
@@ -107,7 +179,7 @@ class _ClientPageState extends State<ClientPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addDemande,
+        onPressed: () => _showDemandeDialog(),
         child: Icon(Icons.add),
       ),
     );

@@ -2,7 +2,8 @@ class Demande {
   final int id;
   final String sujet;
   final String description;
-  String etat;
+  String etat = 'EN_COURS';
+  String email;
   final DateTime dateCreation; // Assuming you have a date field
 
   Demande({
@@ -11,6 +12,7 @@ class Demande {
     required this.description,
     required this.etat,
     required this.dateCreation,
+    required this.email,
   });
 
   // Converts JSON Map to DemandeDTO
@@ -20,6 +22,7 @@ class Demande {
       sujet: json['sujet'],
       description: json['description'],
       etat: json['etat'],
+      email: json['email'],
       dateCreation: DateTime.parse(json['dateCreation']),
     );
   }
@@ -30,9 +33,6 @@ class Demande {
       'id': id,
       'sujet': sujet,
       'description': description,
-      'etat': etat,
-      'dateCreation':
-          dateCreation.toIso8601String(), // Format DateTime as ISO-8601 string
     };
   }
 }

@@ -37,10 +37,27 @@ class _AdminPageState extends State<AdminPage> {
         setState(() {
           // Update the list item with the new data
         });
+        _showMessageSnackBar(context, 'Demande updated successfully');
       } catch (e) {
-        // Handle error
+        _showErrorSnackBar(context, e.toString());
       }
     }
+  }
+
+  void _showMessageSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _showErrorSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
