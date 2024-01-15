@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,15 +28,18 @@ public class DemandeController {
     public ResponseEntity<Demande> createDemande(@RequestBody Demande demande, HttpServletRequest request) {
         String userId = firebaseAuthService.getUidFromRequest(request);
         demande.setUserId(userId);
+        demande.setDateCreation(new Date());
         demande.setEmail(firebaseAuthService.getEmailFromRequest(request));
         Demande createdDemande = demandeService.createDemande(demande);
         return ResponseEntity.ok(createdDemande);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande demande) {
-        demande.setId(id);
-        Demande updatedDemande = demandeService.updateDemande(demande);
+    public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande newDemande) {
+        Demande oldDemande=demandeService.findById(id);
+        oldDemande.setSujet(newDemande.getSujet());
+        oldDemande.setDescription(newDemande.getDescription());
+        Demande updatedDemande = demandeService.updateDemande(oldDemande);
         return ResponseEntity.ok(updatedDemande);
     }
 

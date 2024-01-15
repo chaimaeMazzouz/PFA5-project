@@ -17,6 +17,9 @@ public class DemandeService {
     public List<Demande> getAllDemandes(String userId) {
         return demandeRepository.findAllByUserId(userId);
     }
+    public Demande findById(int id) {
+        return demandeRepository.findById(id).get();
+    }
     public List<Demande> getAllDemandesForAllUsers() {
         return demandeRepository.findAll();
     }

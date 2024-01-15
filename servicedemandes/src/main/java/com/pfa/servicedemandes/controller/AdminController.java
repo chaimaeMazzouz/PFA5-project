@@ -29,9 +29,10 @@ public class AdminController {
         return ResponseEntity.ok(demandes);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande demande) {
-        demande.setId(id);
-        Demande updatedDemande = demandeService.updateDemande(demande);
+    public ResponseEntity<Demande> updateDemande(@PathVariable int id, @RequestBody Demande newDemande) {
+        Demande oldDemande=demandeService.findById(id);
+        oldDemande.setEtat(newDemande.getEtat());
+        Demande updatedDemande = demandeService.updateDemande(oldDemande);
         //TODO : notify user
         // call notification service
         return ResponseEntity.ok(updatedDemande);
