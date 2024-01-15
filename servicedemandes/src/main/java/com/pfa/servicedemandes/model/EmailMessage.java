@@ -16,5 +16,10 @@ public class EmailMessage{
     public String getContent() {
         return content;
     }
+    public EmailMessage(String to,String subject,String content){
+        this.to=to;
+        this.subject=subject;
+        this.content=content;
+    }
 
 }

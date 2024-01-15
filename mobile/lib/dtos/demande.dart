@@ -33,6 +33,7 @@ class Demande {
       'id': id,
       'sujet': sujet,
       'description': description,
+      'etat': etat,
     };
   }
 }

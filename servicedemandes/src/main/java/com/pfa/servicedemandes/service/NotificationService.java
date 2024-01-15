@@ -1,4 +1,4 @@
-package com.pfa.servicedemandes;
+package com.pfa.servicedemandes.service;
 
 import com.pfa.servicedemandes.model.EmailMessage;
 import org.springframework.cloud.openfeign.FeignClient;
