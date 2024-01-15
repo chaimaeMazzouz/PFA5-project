@@ -13,6 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClientComponent } from './client/client.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     ForgotPasswordComponent,
     ClientComponent,
     AdminComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
