@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "738305311799",
+    "project_id": "gestion-de-reservation-fb64e",
+    "storage_bucket": "gestion-de-reservation-fb64e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738305311799:android:a57b59411e2d3524a6abb2",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqYD5b4MHBNjnZYl7d_97l-hu485W6L24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
